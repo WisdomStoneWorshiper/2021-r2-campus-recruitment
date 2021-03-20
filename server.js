@@ -33,17 +33,23 @@ app.get('/product', function (req, res) {
 
 
 //Get membership info 
-// app.get('/membership', function (req, res) {
-//   let sql = `SELECT * FROM membership`;
-//   db.all(sql, (err, rows) => {
-//     if (err) {
-//       res.status(400).json({ "error": err.message });
-//       return;
-//     }
-//     res.status(200).json({ "data": rows });
-//   })
+app.get('/membership', function (req, res) {
+  let sql;
+  if(String(req.query.grade).localeCompare("ALL")){
+    sql = `SELECT * FROM membership WHERE "grade" = ("${req.query.grade}")`;
+  }else{
+    sql= `SELECT * FROM membership`;
+  }
 
-// })
+  db.all(sql, (err, rows) => {
+    if (err) {
+      res.status(400).json({ "error": err.message });
+      return;
+    }
+    res.status(200).json({ "data": rows});
+  })
+
+})
 
 
 // Add product to cart API with query params productId

@@ -2,6 +2,7 @@ import { getMembership } from '../dao/membershipDao';
 import { useState, useEffect } from 'react';
 import '../style/membershipStyle.css';
 import { MembershipItem } from './membershipItem';
+import axios from 'axios';
 
 export const MembershipContainer = () => {
     //React useState hook is used for state management. Utilzes setter setMembership to update product state
@@ -24,6 +25,8 @@ export const MembershipContainer = () => {
     const handleGradeClick = (grade) => {
         setPlanCSS("plan-item-dismiss")
 
+        axios.post('http://localhost:8080', grade)
+
         setTimeout(function () {
             getMembership(grade).then(res => {
                 setMembership(res);
@@ -41,10 +44,10 @@ export const MembershipContainer = () => {
         <>
             <header className="header">
                 <div className="text-center">
-                    <span className="h2 col-sm-3 font-weight-normal grade" onClick={() => handleGradeClick()}>ALL</span>
-                    <span className="h2 col-sm-3 font-weight-normal grade" onClick={() => handleGradeClick("SILvER")}>Sliver</span>
-                    <span className="h2 col-sm-3 font-weight-normal grade" onClick={() => handleGradeClick("GoLD")}>Gold</span>
-                    <span className="h2 col-sm-3 font-weight-normal grade" onClick={() => handleGradeClick("DIAmOND")}>Diamond</span>
+                    <span className="h2 col-sm-3 font-weight-normal grade" onClick={() => handleGradeClick("ALL")}>ALL</span>
+                    <span className="h2 col-sm-3 font-weight-normal grade" onClick={() => handleGradeClick("SILVER")}>Sliver</span>
+                    <span className="h2 col-sm-3 font-weight-normal grade" onClick={() => handleGradeClick("GOLD")}>Gold</span>
+                    <span className="h2 col-sm-3 font-weight-normal grade" onClick={() => handleGradeClick("DIAMOND")}>Diamond</span>
                 </div>
             </header>
             {
